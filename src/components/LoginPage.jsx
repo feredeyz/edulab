@@ -24,11 +24,16 @@ export default function LoginPage() {
             if (d.access_token_cookie) {
                 Cookies.set("access_token_cookie", d.access_token_cookie);
                 navigate("/user");
-            } else {
-                setError("Invalid login");
             }
         } else {
-            setError(d.error || "Invalid login");
+            switch (d.error) {
+                case "Invalid username or password":
+                    setError("Invalid username or password");
+                    break;
+                default:
+                    setError("Invalid login");
+                    break;
+            }
         }
     }
 

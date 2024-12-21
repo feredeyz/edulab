@@ -1,44 +1,85 @@
 import Header from "./Header";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-export default function LoginPage() {
+export default function RegistrationPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
-    
-    const registration = async (e) => {
-        e.preventDefault();
+
+    const registration = async (event) => {
+        event.preventDefault();
+        setError(null);
         const response = await fetch("/registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ username, password, verifyPassword })
-        })
-        const d = await (response.json());
+        });
+        const d = await response.json();
         if (response.ok) {
             if (d.access_token_cookie) {
+                Cookies.set("access_token_cookie", d.access_token_cookie, { expires: 7, sameSite: 'None', secure: true });
                 navigate("/user");
             } else {
-                alert("Invalid registration");
+                setError("Invalid registration");
             }
-        } else if (d.error === "Username already exists") {
-            alert("Username already exists");
-        } else if (d.error === "Passwords do not match") {
-            alert("Passwords do not match");
+        } else {
+            switch (d.error) {
+                case "Missing required fields":
+                    setError("Missing required fields");
+                    break;
+
+                case "Passwords do not match":
+                    setError("Passwords do not match");
+                    break;
+
+                case "Username already exists":
+                    setError("Username already exists");
+                    break;
+                
+                default:
+                    setError("Invalid registration");
+                    break;
+            }
         }
     }
+
     return (
         <div>
             <Header />
             <form onSubmit={registration}>
-                <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <input type="password" name="verifyPassword" value={verifyPassword} onChange={(e) => setVerifyPassword(e.target.value)}/>
+                <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Username"
+                    required
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                />
+                <input
+                    type="password"
+                    name="verifyPassword"
+                    value={verifyPassword}
+                    onChange={(e) => setVerifyPassword(e.target.value)}
+                    placeholder="Verify Password"
+                    required
+                />
                 <input type="submit" value="Sign up" />
             </form>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>
-    )
+    );
 }
