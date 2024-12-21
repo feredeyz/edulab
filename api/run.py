@@ -1,6 +1,5 @@
-from . import create_app
-from .views import main
-
+from server import create_app, db
 app = create_app()
-app.register_blueprint(main)
- 
+with app.app_context():
+    # db.drop_all()
+    db.create_all()
