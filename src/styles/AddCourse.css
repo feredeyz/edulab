@@ -1,0 +1,105 @@
+.add-block {
+    position: absolute;
+    right: 95px;
+    bottom: 35px;
+}
+
+.add-block-button {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.pop-window.hidden {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 50px;
+
+    left: 0;
+    visibility: hidden;
+    opacity: 1;
+    padding: 5px;
+
+    background-color: gray;
+    height: fit-content;
+    width: fit-content;
+
+    gap: 10px;
+
+}
+
+.pop-window.show {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 50px;
+
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+    padding: 5px;
+
+    background-color: gray;
+    height: fit-content;
+    width: fit-content;
+
+    gap: 10px;
+}
+
+.add-image, .add-video {
+    display: none;
+}
+
+.complete-course {
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    width: 45px;
+    height: 45px;
+    & img {
+        height: 80%;
+        width: 80%;
+    }
+}
+
+
+.blocks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    width: 75%;
+    height: fit-content;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: gray;
+    gap: 5px 0;
+    & * {
+        border: 1px solid black;
+        border-radius: 2px;
+    }
+    & p {
+        padding: 3px;
+        background-color: white;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    & * {
+        margin: 5px 10px;
+    }
+    & video, & img {
+        width: 30vw;
+        height: 30vw;
+    }   
+}
+
+#page-add-course-content {
+    display: flex;
+    width: 100vw;
+    height: 90vh;
+}
+

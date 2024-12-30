@@ -2,6 +2,7 @@ import Header from "./Header";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import '../styles/Registration.css'
 
 export default function RegistrationPage() {
     const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ export default function RegistrationPage() {
     const registration = async (event) => {
         event.preventDefault();
         setError(null);
-        const response = await fetch("/registration", {
+        const response = await fetch("/api/registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -52,34 +53,37 @@ export default function RegistrationPage() {
     return (
         <div>
             <Header />
-            <form onSubmit={registration}>
-                <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                />
-                <input
-                    type="password"
-                    name="verifyPassword"
-                    value={verifyPassword}
-                    onChange={(e) => setVerifyPassword(e.target.value)}
-                    placeholder="Verify Password"
-                    required
-                />
-                <input type="submit" value="Sign up" />
-            </form>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <div id="page-reg-content">
+                <p>Signing Up</p>
+                <form onSubmit={registration}>
+                    <input
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Username"
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="verifyPassword"
+                        value={verifyPassword}
+                        onChange={(e) => setVerifyPassword(e.target.value)}
+                        placeholder="Verify Password"
+                        required
+                    />
+                    <input type="submit" value="Sign up" />
+                </form>
+                {error && <div style={{ color: 'red' }}>{error}</div>}
+            </div>
         </div>
     );
 }

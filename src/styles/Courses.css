@@ -1,0 +1,25 @@
+.courses {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    & div {
+        padding: 10px 10px;
+        background-color: rgba(170, 169, 169, 0.2);
+    }
+}
+
+.add-course-button {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    width: 65px;
+    height: 65px;
+    font-size: 1.4em;
+    border-radius: 50%;
+    border: 0 solid transparent;
+}

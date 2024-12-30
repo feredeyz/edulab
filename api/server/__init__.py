@@ -20,8 +20,9 @@ def create_app():
     jwt_manager.init_app(app)
     
     
-    from .views import main, auth
+    from .views import main, auth, profile
     app.register_blueprint(main)
     app.register_blueprint(auth)
+    app.register_blueprint(profile)
     
     return app
